@@ -15,11 +15,10 @@ public class Agenda implements Serializable{
     private Long id;
 
     private String name;
-    private Double days;
-    private Double hours;
-    private String location;
-
-
+    private Double days1;
+    private Double hours2;
+    private String location3;
+    
     public Long getId() {
         return id;
     }
@@ -32,25 +31,25 @@ public class Agenda implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
-    public Double getDays() {
-        return days;
+    public Double getDays1() {
+        return days1;
     }
-    public void setDays(Double days) {
-        this.days = days;
+    public void setDays1(Double days1) {
+        this.days1 = days1;
     }
-    public Double getHours() {
-        return hours;
+    public Double getHours2() {
+        return hours2;
     }
-    public void setHours(Double hours) {
-        this.hours = hours;
+    public void setHours2(Double hours2) {
+        this.hours2 = hours2;
     }
-    public String getLocation() {
-        return location;
+    public String getLocation3() {
+        return location3;
     }
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLocation3(String location3) {
+        this.location3 = location3;
     }
-
+    
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -75,4 +74,6 @@ public class Agenda implements Serializable{
         return true;
     }
 
+    
+   
 }
