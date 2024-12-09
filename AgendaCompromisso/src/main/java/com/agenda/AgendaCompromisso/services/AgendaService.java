@@ -4,11 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.agenda.AgendaCompromisso.dtos.AgendaRequest;
 import com.agenda.AgendaCompromisso.dtos.AgendaResponse;
@@ -24,7 +20,9 @@ public class AgendaService {
     @Autowired
     private AgendaRepository repository;
 
-    public List<AgendaResponse> getAllAgenda() {
+public void save(){}
+
+public List<AgendaResponse> getAllAgenda() {
 return repository.findAll().stream().map(p -> AgendaMapper.toDTO(p)).collect(Collectors.toList());
 }
 
@@ -33,15 +31,25 @@ public AgendaResponse getAgendabyId(Long id){
     () -> new EntityNotFoundException("Agenda não cadastrada")
   );
 
-return AgendaMapper.toDTO(agenda);
+  return AgendaMapper.toDTO(agenda);
  }
 
- @PostMapping()
- public ResponseEntity<AgendaResponse> saveAgenda(@Validated @RequestBody AgendaRequest Agenda){
-    AgendaResponse newAgenda = service.save(Agenda);
-    return ResponseEntity.created(null).body(newAgenda);
+ public void delete(Long id){
+    if(repository.existsById(id)){
+       repository.deleteById(id);
+
+    }
+    else {
+       throw new EntityNotFoundException("Produto não Cadastrado");
+    }
+   }
+   
+   public AgendaResponse save(AgendaRequest Agenda){
+    Agenda newAgenda = repository.save(AgendaMapper.toEntity(Agenda));
+    return AgendaMapper.toDTO(newAgenda);
  }
- public void uptade(AgendaRequest agenda, Long id) {
+
+public void uptade(AgendaRequest agenda, Long id) {
     Agenda aux = repository.getReferenceById(id);
     aux.setName(agenda.name());
     aux.setDays1(agenda.days1());
@@ -49,14 +57,6 @@ return AgendaMapper.toDTO(agenda);
     aux.setLocation3(agenda.location3());
     
     repository.save(aux);
-}
-
-public void delete(Long id) {
-    if(repository.existsById(id)) {
-        repository.deleteById(id);
-    }  else {
-        throw new EntityNotFoundException("Produto não cadastrado");
-    }
 }
 
 }
