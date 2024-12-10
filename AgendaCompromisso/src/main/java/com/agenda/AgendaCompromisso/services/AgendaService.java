@@ -20,44 +20,44 @@ public class AgendaService {
     @Autowired
     private AgendaRepository repository;
 
-public void save(){}
+    public void save(){}
 
-public List<AgendaResponse> getAllAgenda() {
-return repository.findAll().stream().map(p -> AgendaMapper.toDTO(p)).collect(Collectors.toList());
-}
-
-public AgendaResponse getAgendabyId(Long id){
-  Agenda agenda = repository.findById(id).orElseThrow(
-    () -> new EntityNotFoundException("Agenda não cadastrada")
-  );
-
-  return AgendaMapper.toDTO(agenda);
- }
-
- public void delete(Long id){
-    if(repository.existsById(id)){
-       repository.deleteById(id);
-
+    public List<AgendaResponse> getAllAgenda() {
+    return repository.findAll().stream().map(p -> AgendaMapper.toDTO(p)).collect(Collectors.toList());
     }
-    else {
-       throw new EntityNotFoundException("Produto não Cadastrado");
-    }
-   }
-   
-   public AgendaResponse save(AgendaRequest Agenda){
-    Agenda newAgenda = repository.save(AgendaMapper.toEntity(Agenda));
-    return AgendaMapper.toDTO(newAgenda);
- }
 
-public void uptade(AgendaRequest agenda, Long id) {
-    Agenda aux = repository.getReferenceById(id);
-    aux.setName(agenda.name());
-    aux.setDays1(agenda.days1());
-    aux.setHours2(agenda.hours2());
-    aux.setLocation3(agenda.location3());
+    public AgendaResponse getAgendabyId(Long id){
+    Agenda agenda = repository.findById(id).orElseThrow(
+        () -> new EntityNotFoundException("Agenda não cadastrada")
+    );
+
+    return AgendaMapper.toDTO(agenda);
+    }
+
+    public void delete(Long id){
+        if(repository.existsById(id)){
+        repository.deleteById(id);
+
+        }
+        else {
+        throw new EntityNotFoundException("Produto não Cadastrado");
+        }
+    }
     
-    repository.save(aux);
-}
+    public AgendaResponse save(AgendaRequest Agenda){
+        Agenda newAgenda = repository.save(AgendaMapper.toEntity(Agenda));
+        return AgendaMapper.toDTO(newAgenda);
+    }
+
+    public void uptade(AgendaRequest agenda, Long id) {
+        Agenda aux = repository.getReferenceById(id);
+        aux.setName(agenda.name());
+        aux.setDays1(agenda.days1());
+        aux.setHours2(agenda.hours2());
+        aux.setLocation3(agenda.location3());
+        
+        repository.save(aux);
+    }
 
 }
 
