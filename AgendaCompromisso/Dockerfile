@@ -1,5 +1,6 @@
 FROM maven:3.8.4-openjdk-17-slim AS build
 COPY . /home/app/AgendaCompromisso
+
 RUN mvn -v
 RUN mvn -f /home/app/AgendaCompromisso/pom.xml clean package
 
