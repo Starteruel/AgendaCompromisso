@@ -2,7 +2,7 @@ FROM maven:3.8.4-openjdk-17-slim AS build
 COPY . /home/app/AgendaCompromisso
 
 RUN mvn -v
-RUN mvn -f /home/app/AgendaCompromisso/AgendaCompromisso/pom.xml clean package
+RUN mvn -f /home/app/https://github.com/Starteruel/AgendaCompromisso/AgendaCompromisso/pom.xml clean package
 
 
 #Step 2 - Run appointment-backend
